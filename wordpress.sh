@@ -22,6 +22,9 @@ apt-get -y upgrade;
 # Install Apache/MySQL
 apt-get -y install apache2 php php-mysql libapache2-mod-php7.2 php7.2-mysql php7.2-curl php7.2-zip php7.2-json php7.2-xml mysql-server mysql-client unzip wget;
 
+# fix broken installs if any
+apt --fix-broken install;
+
 # Download and uncompress WordPress
 wget https://wordpress.org/latest.zip -O /tmp/wordpress.zip;
 cd /tmp/;
@@ -50,9 +53,9 @@ chown -Rf www-data:www-data /var/www/html;
 a2enmod rewrite;
 
 # increase php limits
-sed -i 's/^upload_max_filesize.*/upload_max_filesize = 64M/' /etc/php/7.2/apache2/php.ini
-sed -i 's/^post_max_size.*/post_max_size = 64M/' /etc/php/7.2/apache2/php.ini
-sed -i 's/^memory_limit.*/memory_limit = 128M/' /etc/php/7.2/apache2/php.ini
-sed -i 's/^max_execution_time.*/max_execution_time = 300/' /etc/php/7.2/apache2/php.ini
+sed -i 's/^upload_max_filesize.*/upload_max_filesize = 64M/' /etc/php/7.2/apache2/php.ini;
+sed -i 's/^post_max_size.*/post_max_size = 64M/' /etc/php/7.2/apache2/php.ini;
+sed -i 's/^memory_limit.*/memory_limit = 128M/' /etc/php/7.2/apache2/php.ini;
+sed -i 's/^max_execution_time.*/max_execution_time = 300/' /etc/php/7.2/apache2/php.ini;
 
 service apache2 restart;
