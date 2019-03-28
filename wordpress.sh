@@ -48,4 +48,11 @@ cp -Rf /tmp/wordpress/* /var/www/html/.;
 rm -f /var/www/html/index.html;
 chown -Rf www-data:www-data /var/www/html;
 a2enmod rewrite;
+
+# increase php limits
+sed -i 's/^upload_max_filesize.*/upload_max_filesize = 64M/' /etc/php/7.2/apache2/php.ini
+sed -i 's/^post_max_size.*/post_max_size = 64M/' /etc/php/7.2/apache2/php.ini
+sed -i 's/^memory_limit.*/memory_limit = 128M/' /etc/php/7.2/apache2/php.ini
+sed -i 's/^max_execution_time.*/max_execution_time = 300/' /etc/php/7.2/apache2/php.ini
+
 service apache2 restart;
